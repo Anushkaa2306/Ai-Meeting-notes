@@ -9,7 +9,10 @@ app = Flask(__name__)
 
 
 UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
 
 # Create uploads folder if it doesn't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -26,7 +29,7 @@ def download_pdf():
         "exports/meeting_report.pdf",
         as_attachment=True
     )
-    
+
 @app.route("/upload", methods=["POST"])
 def upload():
 
