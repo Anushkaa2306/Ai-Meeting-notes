@@ -2,4 +2,4 @@ Flask
 groq
 python-dotenv
 reportlab
-requests
+Werkzeug
