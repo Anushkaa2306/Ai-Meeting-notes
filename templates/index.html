@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetingMind AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/6d2ea823d0.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+         MeetingMind AI
+    </div>
+
+    <div class="menu">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">About</a>
+    </div>
+</nav>
+
+
+<section class="hero-title">
+
+    <h1>AI Powered Meeting Notes</h1>
+
+    <p>
+        Upload your meeting recording and instantly receive
+        transcript, smart summary, action items and follow-up notes.
+    </p>
+
+</section>
+
+
+<div class="upload-card">
+
+<form action="/upload"
+      method="POST"
+      enctype="multipart/form-data">
+
+<div class="upload-box">
+
+<i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+
+<h2>Upload Meeting Audio</h2>
+
+<p>MP3 • WAV • M4A</p>
+
+<input
+type="file"
+name="audio"
+accept=".mp3,.wav,.m4a"
+required>
+
+<button>
+Generate Notes
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+
+<section class="features">
+
+<div class="feature">
+
+<h3> Speech To Text</h3>
+
+<p>Convert meetings into highly accurate transcripts.</p>
+
+</div>
+
+<div class="feature">
+
+<h3> AI Summary</h3>
+
+<p>Generate concise meeting summaries instantly.</p>
+
+</div>
+
+<div class="feature">
+<style>
+canvas{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+}
+</style>
+<h3>Action Items</h3>
+<canvas id="fluid"></canvas>
+<p>Automatically extract important tasks.</p>
+
+</div>
+
+</section>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="{{ url_for('static', filename='animations.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.92/build/spline-viewer.js"></script>
+<script type="module" src="{{ url_for('static', filename='background.js') }}"></script>
+</body>
+</html>

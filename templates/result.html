@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetingMind AI | Transcript</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo"> MeetingMind AI</div>
+
+    <div class="menu">
+        <a href="/">Home</a>
+        <a href="#">History</a>
+        <a href="#">Settings</a>
+    </div>
+</nav>
+
+<div class="result-container">
+
+    <div class="success-card">
+
+        <div class="success-icon">✅</div>
+
+        <h1>Audio Uploaded Successfully</h1>
+
+        <p>Your meeting recording has been received.</p>
+
+    </div>
+
+    <div class="transcript-card">
+
+        <div class="card-header">
+
+            <h2> Meeting Transcript</h2>
+
+            <span class="badge">AI Generated</span>
+
+        </div>
+
+        <div class="transcript-box">
+
+            {{ transcript }}
+
+        </div>
+
+    </div>
+
+
+       <div class="button-group">
+
+    <a href="/" class="primary-btn">
+        Upload Another Audio
+    </a>
+
+    <a href="/download-pdf" class="secondary-btn">
+     Download PDF
+    </a>
+
+    <button class="secondary-btn"
+            onclick="copyTranscript()">
+         Copy Transcript
+    </button>
+
+</div>
+    </div>
+
+</div>
+
+<script>
+function copyTranscript(){
+
+    const text=document.querySelector(".transcript-box").innerText;
+
+    navigator.clipboard.writeText(text);
+
+    alert("Transcript copied!");
+}
+</script>
+
+</body>
+</html>
