@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, send_file
 from werkzeug.utils import secure_filename
 import os
-
+from flask import send_from_directory
 from utils.speech import transcribe_audio
 from utils.pdf_export import create_pdf
+from utils.chat import ask_ai
 
 app = Flask(__name__)
-
+latest_transcript = ""
 # Temporary folders for Vercel
 UPLOAD_FOLDER = "/tmp/uploads"
 EXPORT_FOLDER = "/tmp/exports"
@@ -40,6 +41,10 @@ def upload():
 
     try:
         transcript = transcribe_audio(filepath)
+        global latest_transcript
+
+        latest_transcript = transcript
+        
     except Exception as e:
         return f"Speech Transcription Error:<br><br>{e}", 500
 
@@ -50,11 +55,30 @@ def upload():
         return f"PDF Generation Error:<br><br>{e}", 500
 
     return render_template(
-        "result.html",
-        transcript=transcript
+    "result.html",
+    transcript=transcript,
+    audio_file=filename
+)
+@app.route("/chat", methods=["POST"])
+def chat():
+
+    global latest_transcript
+
+    question = request.form.get("question")
+
+    answer = ask_ai(
+        latest_transcript,
+        question
     )
 
+    return {"answer": answer}
 
+@app.route("/audio/<filename>")
+def audio(filename):
+    return send_from_directory(
+        app.config["UPLOAD_FOLDER"],
+        filename
+    )
 @app.route("/download-pdf")
 def download_pdf():
 

@@ -1,47 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>MeetingMind AI | Transcript</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
 </head>
 
 <body>
 
+<!-- =========================================
+                NAVBAR
+========================================= -->
+
 <nav>
-    <div class="logo"> MeetingMind AI</div>
+
+    <div class="logo">
+
+        MeetingMind AI
+
+    </div>
 
     <div class="menu">
+
         <a href="/">Home</a>
+
         <a href="#">History</a>
+
         <a href="#">Settings</a>
+
     </div>
+
 </nav>
+
+<!-- =========================================
+            RESULT CONTAINER
+========================================= -->
 
 <div class="result-container">
 
+    <!-- Success Card -->
+
     <div class="success-card">
 
-        <div class="success-icon">✅</div>
+        <div class="success-icon">
 
-        <h1>Audio Uploaded Successfully</h1>
+            <i class="fa-regular fa-circle-check"></i>
 
-        <p>Your meeting recording has been received.</p>
+        </div>
+
+        <h1>
+
+            Audio Uploaded Successfully
+
+        </h1>
+
+        <p>
+
+            Your meeting recording has been processed successfully.
+
+        </p>
 
     </div>
+
+    <!-- =========================================
+                AUDIO PLAYER
+    ========================================= -->
 
     <div class="transcript-card">
 
         <div class="card-header">
 
-            <h2> Meeting Transcript</h2>
+            <h2>
 
-            <span class="badge">AI Generated</span>
+                🎧 Uploaded Audio
+
+            </h2>
+
+            <span class="badge">
+
+                Ready
+
+            </span>
+
+        </div>
+
+        <audio controls
+               preload="metadata"
+               style="width:100%;margin-top:20px;">
+
+            <source
+                src="{{ url_for('audio', filename=audio_file) }}"
+                type="audio/mpeg">
+
+            Your browser does not support audio playback.
+
+        </audio>
+
+        <p style="margin-top:15px;color:#CBD5E1;">
+
+            {{ audio_file }}
+
+        </p>
+
+    </div>
+
+    <br>
+
+    <!-- =========================================
+                TRANSCRIPT
+    ========================================= -->
+
+    <div class="transcript-card">
+
+        <div class="card-header">
+
+            <h2>
+
+                📝 Meeting Transcript
+
+            </h2>
+
+            <span class="badge">
+
+                AI Generated
+
+            </span>
 
         </div>
 
@@ -53,37 +155,413 @@
 
     </div>
 
+    <br>
 
-       <div class="button-group">
+    <!-- =========================================
+                ACTION BUTTONS
+    ========================================= -->
 
-    <a href="/" class="primary-btn">
-        Upload Another Audio
-    </a>
+    <div class="button-group">
 
-    <a href="/download-pdf" class="secondary-btn">
-     Download PDF
-    </a>
+        <a href="/"
+           class="primary-btn">
 
-    <button class="secondary-btn"
+            Upload Another Audio
+
+        </a>
+
+        <a href="/download-pdf"
+           class="secondary-btn">
+
+            Download PDF
+
+        </a>
+
+        <button
+            class="secondary-btn"
             onclick="copyTranscript()">
-         Copy Transcript
-    </button>
 
-</div>
+            Copy Transcript
+
+        </button>
+
     </div>
 
 </div>
+<!-- =====================================================
+                FLOATING AI BUTTON
+====================================================== -->
 
+<button id="aiButton" class="ai-button">
+
+    <span class="ai-icon">
+        <i class="fa-light fa-robot"></i>
+    </span>
+
+    <span class="ai-text">
+
+        Ask AI
+
+    </span>
+
+</button>
+
+<!-- =====================================================
+                AI SIDEBAR
+====================================================== -->
+
+<div id="chatSidebar" class="chat-sidebar">
+
+    <!-- Header -->
+
+    <div class="chat-header">
+
+        <div class="chat-header-left">
+
+            <div class="chat-avatar">
+
+                🤖
+
+            </div>
+
+            <div>
+
+                <h2>
+
+                    MeetingMind AI
+
+                </h2>
+
+                <p>
+
+                    Your Meeting Assistant
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <button id="closeChat">
+
+            ✕
+
+        </button>
+
+    </div>
+
+    <!-- Welcome Message -->
+
+    <div id="chatMessages" class="chat-messages">
+
+        <div class="bot-message">
+
+            <div class="avatar">
+
+                🤖
+
+            </div>
+
+            <div class="bubble">
+
+                👋 <b>Hi!</b>
+
+                <br><br>
+
+                I'm <b>MeetingMind AI</b>.
+
+                I've already analyzed your meeting.
+
+                <br><br>
+
+                You can ask me things like...
+
+                <br><br>
+
+                📋 Summarize the meeting
+
+                <br>
+
+                ✅ What are the action items?
+
+                <br>
+
+                👤 Who is responsible for what?
+
+                <br>
+
+                📅 Any deadlines?
+
+                <br>
+
+                💡 Key decisions made?
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Suggested Questions -->
+
+    <div class="suggestions">
+
+        <button onclick="quickQuestion('Summarize this meeting')">
+
+            📋 Summary
+
+        </button>
+
+        <button onclick="quickQuestion('What are the action items?')">
+
+            ✅ Tasks
+
+        </button>
+
+        <button onclick="quickQuestion('What are the deadlines?')">
+
+            📅 Deadlines
+
+        </button>
+
+    </div>
+
+    <!-- Chat Input -->
+
+    <div class="chat-input">
+
+        <input
+
+            id="question"
+
+            type="text"
+
+            placeholder="Ask anything about this meeting..."
+
+        >
+
+        <button
+
+            id="sendButton"
+
+            onclick="askAI()">
+
+            ➜
+
+        </button>
+
+    </div>
+
+</div>
 <script>
+
+// =======================================
+// Wait until page loads
+// =======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const aiButton = document.getElementById("aiButton");
+    const sidebar = document.getElementById("chatSidebar");
+    const closeChat = document.getElementById("closeChat");
+    const input = document.getElementById("question");
+
+    // Open Sidebar
+
+    aiButton.addEventListener("click", () => {
+
+        sidebar.classList.add("open");
+
+        input.focus();
+
+    });
+
+    // Close Sidebar
+
+    closeChat.addEventListener("click", () => {
+
+        sidebar.classList.remove("open");
+
+    });
+
+    // Enter Key
+
+    input.addEventListener("keypress", function(e){
+
+        if(e.key === "Enter"){
+
+            askAI();
+
+        }
+
+    });
+
+});
+
+
+// =======================================
+// Copy Transcript
+// =======================================
+
 function copyTranscript(){
 
-    const text=document.querySelector(".transcript-box").innerText;
+    const transcript =
+        document.querySelector(".transcript-box").innerText;
 
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(transcript);
 
     alert("Transcript copied!");
+
 }
+
+
+// =======================================
+// Suggested Questions
+// =======================================
+
+function quickQuestion(text){
+
+    document.getElementById("question").value = text;
+
+    askAI();
+
+}
+
+
+// =======================================
+// Chat Function
+// =======================================
+
+async function askAI(){
+
+    const input = document.getElementById("question");
+
+    const question = input.value.trim();
+
+    if(question==="") return;
+
+    const chat = document.getElementById("chatMessages");
+
+    // USER MESSAGE
+
+    chat.innerHTML += `
+
+    <div class="user-message">
+
+        <div class="bubble">
+
+            ${question}
+
+        </div>
+
+    </div>
+
+    `;
+
+    input.value="";
+
+    // BOT THINKING
+
+    chat.innerHTML += `
+
+    <div
+        class="bot-message"
+        id="thinking">
+
+        <div class="avatar">
+
+            🤖
+
+        </div>
+
+        <div class="bubble typing">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </div>
+
+    `;
+
+    chat.scrollTop = chat.scrollHeight;
+
+    try{
+
+        const form = new FormData();
+
+        form.append("question",question);
+
+        const response = await fetch("/chat",{
+
+            method:"POST",
+
+            body:form
+
+        });
+
+        const result = await response.json();
+
+        document.getElementById("thinking").remove();
+
+        chat.innerHTML += `
+
+        <div class="bot-message">
+
+            <div class="avatar">
+
+                🤖
+
+            </div>
+
+            <div class="bubble">
+
+                ${result.answer}
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+    catch{
+
+        document.getElementById("thinking").remove();
+
+        chat.innerHTML += `
+
+        <div class="bot-message">
+
+            <div class="avatar">
+
+                🤖
+
+            </div>
+
+            <div class="bubble">
+
+                Sorry, something went wrong while contacting the AI.
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+    chat.scrollTop = chat.scrollHeight;
+
+}
+
+
+
 </script>
 
 </body>
+
 </html>
