@@ -20,11 +20,34 @@
          MeetingMind AI
     </div>
 
+   
     <div class="menu">
         <a href="#">Home</a>
         <a href="#">Features</a>
         <a href="#">About</a>
     </div>
+<div class="user-info">
+
+   <div class="user-profile">
+
+    <div class="user-avatar">
+        {{ current_user.full_name[0] }}
+    </div>
+
+    <div class="user-content">
+
+        <div class="user-text">
+            <h4>{{ current_user.full_name }}</h4>
+            <p>{{ current_user.email }}</p>
+        </div>
+
+        <a href="{{ url_for('logout') }}" class="logout-btn">
+            ⎋ Logout
+        </a>
+
+    </div>
+
+</div>
 </nav>
 
 

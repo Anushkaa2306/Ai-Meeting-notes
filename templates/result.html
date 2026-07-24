@@ -135,7 +135,7 @@
 
             <h2>
 
-                📝 Meeting Transcript
+                 Meeting Transcript
 
             </h2>
 
@@ -197,7 +197,9 @@
     <span class="ai-icon">
         <i class="fa-light fa-robot"></i>
     </span>
-
+<div class="ai-avatar" id="aiAvatar">
+    <img src="{{ url_for('static', filename='images/ai-bot.png') }}" alt="AI Bot">
+</div>
     <span class="ai-text">
 
         Ask AI
@@ -219,10 +221,8 @@
         <div class="chat-header-left">
 
             <div class="chat-avatar">
-
-                🤖
-
-            </div>
+            <img src="{{ url_for('static', filename='images/ai-bot.png') }}" alt="AI Assistant">
+        </div>
 
             <div>
 
@@ -256,15 +256,13 @@
 
         <div class="bot-message">
 
-            <div class="avatar">
-
-                🤖
-
-            </div>
+         <div class="avatar">
+    <img src="{{ url_for('static', filename='images/ai-bot.png') }}" alt="AI Bot">
+</div>
 
             <div class="bubble">
 
-                👋 <b>Hi!</b>
+                <b>Hi!</b>
 
                 <br><br>
 
@@ -278,23 +276,23 @@
 
                 <br><br>
 
-                📋 Summarize the meeting
+                 Summarize the meeting
 
                 <br>
 
-                ✅ What are the action items?
+                 What are the action items?
 
                 <br>
 
-                👤 Who is responsible for what?
+                 Who is responsible for what?
 
                 <br>
 
-                📅 Any deadlines?
+                 Any deadlines?
 
                 <br>
 
-                💡 Key decisions made?
+                 Key decisions made?
 
             </div>
 
@@ -308,19 +306,19 @@
 
         <button onclick="quickQuestion('Summarize this meeting')">
 
-            📋 Summary
+             Summary
 
         </button>
 
         <button onclick="quickQuestion('What are the action items?')">
 
-            ✅ Tasks
+             Tasks
 
         </button>
 
         <button onclick="quickQuestion('What are the deadlines?')">
 
-            📅 Deadlines
+             Deadlines
 
         </button>
 
@@ -383,7 +381,21 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebar.classList.remove("open");
 
     });
+aiButton.addEventListener("click", function(){
 
+    sidebar.classList.add("open");
+
+    aiButton.classList.add("hide");
+
+});
+
+closeChat.addEventListener("click", function(){
+
+    sidebar.classList.remove("open");
+
+    aiButton.classList.remove("hide");
+
+});
     // Enter Key
 
     input.addEventListener("keypress", function(e){
@@ -470,7 +482,7 @@ async function askAI(){
 
         <div class="avatar">
 
-            🤖
+            <img src="{{ url_for('static', filename='images/ai-bot.png') }}" alt="AI Bot">
 
         </div>
 
@@ -512,7 +524,7 @@ async function askAI(){
 
             <div class="avatar">
 
-                🤖
+                <img src="{{ url_for('static', filename='images/ai-bot.png') }}" alt="AI Bot">
 
             </div>
 
