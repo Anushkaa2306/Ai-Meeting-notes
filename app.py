@@ -28,7 +28,6 @@ from utils.speech import transcribe_audio
 from utils.pdf_export import create_pdf
 from utils.chat import ask_ai
 
-
 app = Flask(__name__)
 
 # ----------------------------
